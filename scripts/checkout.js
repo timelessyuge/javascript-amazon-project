@@ -2,7 +2,7 @@ import { cart, removeFromCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { formatCurrency } from './utils/money.js';
 
-console.log(cart);
+// console.log(cart);
 
 let cartItemsHTML = '';
 
@@ -13,8 +13,8 @@ cart.forEach((cartItem) => {
       matchingItem = product;
     }
   });
-  console.log(cartItem);
-  console.log(matchingItem);
+  // console.log(cartItem);
+  // console.log(matchingItem);
   
 
   cartItemsHTML += `
