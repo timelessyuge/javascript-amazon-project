@@ -52,7 +52,7 @@ function generateHtmlTemplate(product) {
 
           <button class="add-to-cart-button button-primary js-add-to-cart" 
           data-product-name="${product.name}"
-          data-product-id=${product.id}>
+          data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>`;
@@ -88,6 +88,7 @@ function updateCartQuantity() {
 document.querySelectorAll('.js-add-to-cart')
   .forEach(button => {
     button.addEventListener('click', () => {
+      // console.log(cart);
       const productId = button.dataset.productId;
       addToCart(productId);
       updateCartQuantity();
