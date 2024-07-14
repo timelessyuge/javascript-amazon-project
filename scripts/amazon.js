@@ -1,5 +1,11 @@
+import {cart} from '../data/cart.js';
+// import {cart as myCart} from '../data/cart.js';
+import {products} from '../data/products.js';
+
+console.log(products);
+
 function generateHtmlTemplate(product) {
-  htmlTemplate = `<div class="product-container">
+  const htmlTemplate = `<div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
               src="${product.image}">
@@ -59,7 +65,7 @@ let productsHTML = '';
 
 products.forEach(product => {
 
-  htmlTemplate = generateHtmlTemplate(product);
+  const htmlTemplate = generateHtmlTemplate(product);
 
   productsHTML += htmlTemplate;
 
