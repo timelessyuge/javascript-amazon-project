@@ -81,10 +81,10 @@ function generateHtmlTemplate(image, name, stars, count, priceCents) {
 }
 
 
-let productsHtml = '';
+let productsHTML = '';
 products.forEach(product => {
   htmlTemplate = generateHtmlTemplate(product.image, product.name, product.rating.stars, product.rating.count, product.priceCents);
-  productsHtml += htmlTemplate;
+  productsHTML += htmlTemplate;
 });
 
-document.querySelector('.js-products-grid').innerHTML = productsHtml;
+document.querySelector('.js-products-grid').innerHTML = productsHTML;
