@@ -1,24 +1,24 @@
-function generateHtmlTemplate(image, name, stars, count, priceCents) {
+function generateHtmlTemplate(product) {
   htmlTemplate = `<div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
-              src="${image}">
+              src="${product.image}">
           </div>
 
           <div class="product-name limit-text-to-2-lines">
-            ${name}
+            ${product.name}
           </div>
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${stars * 10}.png">
+              src="images/ratings/rating-${product.rating.stars * 10}.png">
             <div class="product-rating-count link-primary">
-              ${count}
+              ${product.rating.count}
             </div>
           </div>
 
           <div class="product-price">
-            $${(priceCents / 100).toFixed(2)}
+            $${(product.priceCents / 100).toFixed(2)}
           </div>
 
           <div class="product-quantity-container">
@@ -43,7 +43,9 @@ function generateHtmlTemplate(image, name, stars, count, priceCents) {
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary js-add-to-cart" 
+          data-product-name="${product.name}"
+          data-product-id=${product.id}>
             Add to Cart
           </button>
         </div>`;
@@ -57,15 +59,41 @@ let productsHTML = '';
 
 products.forEach(product => {
 
-  htmlTemplate = generateHtmlTemplate(
-    product.image, 
-    product.name, 
-    product.rating.stars, 
-    product.rating.count, 
-    product.priceCents);
+  htmlTemplate = generateHtmlTemplate(product);
 
   productsHTML += htmlTemplate;
 
 });
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+
+
+
+document.querySelectorAll('.js-add-to-cart')
+  .forEach(button => {
+    button.addEventListener('click', () => {
+      
+      const productId = button.dataset.productId;
+
+      let hasItem = false;
+
+      cart.forEach(item => {
+        if (productId === item.productId) {
+          item.quantity++;
+          hasItem = true;
+        } 
+      });
+
+      if(!hasItem) {
+        cart.push({
+          productId:productId,
+          quantity:1,
+        });
+      }
+      // console.log(button.dataset);
+      console.log(cart);
+    });
+  });
+
+
+
