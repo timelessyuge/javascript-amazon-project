@@ -1,8 +1,7 @@
 import { cart, removeFromCart, updateDeliveryOption } from '../../data/cart.js';
-import { products, getProduct } from '../../data/products.js';
-import formatCurrency from '../utils/money.js';
-import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
+import { getProduct } from '../../data/products.js';
+import {formatCurrency} from '../utils/money.js';
+import {deliveryOptions, getDateString, getDeliveryOption} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 import { renderCheckoutHeader } from './checkoutHeader.js';
 
@@ -17,9 +16,7 @@ export function renderOrderSummary() {
 
     const deliveryOption = getDeliveryOption(deliveryOptionId);
 
-    const today = dayjs();
-    const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
-    const dateString = deliveryDate.format('dddd, MMMM D');
+    const dateString = getDateString(deliveryOption);
 
     cartItemsHTML += `
     <div class="cart-item-container 
@@ -71,10 +68,8 @@ export function renderOrderSummary() {
     let html = '';
 
     deliveryOptions.forEach(deliveryOption => {
-      const today = dayjs();
-      const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
-      const dateString = deliveryDate.format('dddd, MMMM D');
-      const optionPriceCents = deliveryOption.priceCents;
+      
+      const dateString = getDateString(deliveryOption);
 
       /*
       let priceString;
@@ -127,8 +122,8 @@ export function renderOrderSummary() {
         removeFromCart(productId);      
         const container = document.querySelector(`.js-cart-item-container-${productId}`);
         container.remove();
-        renderPaymentSummary();
-        renderCheckoutHeader();
+        const itemQuantity = renderPaymentSummary();
+        renderCheckoutHeader(itemQuantity);
       })
     });
 
