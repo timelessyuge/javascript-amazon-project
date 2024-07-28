@@ -1,15 +1,15 @@
 // export let cart = JSON.parse(localStorage.getItem('cart'));
 class Cart {
     cartItems;
-    localStorageKey;
+    #localStorageKey;
 
     constructor(localStorageKey) {
-        this.localStorageKey = localStorageKey;
-        this.loadFromStorage();
+        this.#localStorageKey = localStorageKey;
+        this.#loadFromStorage();
     }
 
-    loadFromStorage = function () {
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)); // change spot
+    #loadFromStorage() {
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)); // change spot
 
         if (!this.cartItems) { // change spot
             this.cartItems = [ // change spot
@@ -27,7 +27,7 @@ class Cart {
     }
 
     saveToStorage() { // this is a shorthand method syntax
-        localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+        localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
     }
 
     addToCart(productId) {
@@ -83,7 +83,7 @@ class Cart {
 
 const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
-
+// cart.#localStorageKey = "test";
 
 console.log(cart);
 console.log(businessCart);
